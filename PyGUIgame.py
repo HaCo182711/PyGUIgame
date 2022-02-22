@@ -1,22 +1,37 @@
 import pygame
 pygame.init()
 
-class pggWindow:
-  def __init__(self,
-  width=256,
-  height=128,
-  name="PyGUIgame window"):
 
+FILLED = False
+HOLLOW = True
+
+WHITE = (255,255,255)
+BLACK = (0,0,0)
+RED = (255,0,0)
+GREEN = (0,255,0)
+BLUE = (0,0,255)
+
+
+def init(width, height, name):
+  return pggWindow(width, height, name)
+
+class pggWindow:
+  def __init__(self, width, height, name):
     self.width = width
     self.height = height
     self.name = name
-    self.isDefined = False
+
+    self.win = pygame.display.set_mode((self.width, self.height))
+    pygame.display.set_caption(name)
 
     self.keys = []
     self.mouseButtons = []
     self.pos = 0,0
 
   def Update(self):
+    pygame.display.update()
+    self.win.fill((0,0,0))
+
     self.pos = pygame.mouse.get_pos()
     for event in pygame.event.get():
       if event.type == pygame.KEYDOWN:
@@ -24,23 +39,26 @@ class pggWindow:
       if event.type == pygame.KEYUP:
         if event.key in self.keys:
           self.keys.remove(event.key)
+  def background(self, color):
+    self.win.fill(color)
 
-Window = pggWindow()
+  def draw_line(self, color, p1, p2):
+    pygame.draw.line(self.win, color, p1, p2)
+  def draw_rect(self, color, p1, p2, filled=False):
+    pygame.draw.rect(self.win, color, (p1, p2), filled)
+  def draw_circle(self, color, p, r, filled=False):
+    pygame.draw.circle(self.win, color, p, r, filled)
 
-def GetWindow(width, height, name=""):
-  if Window.isDefined == True:
-    raise Exception("There Can Only be 1 window!")
-  if name != "":
-    Window.name = name
-  Window.width = width
-  Window.height = height
-  Window.isDefined = True
-  return Window
 
 if __name__ == "__main__":
   print("this is a demo")
-  win = GetWindow(100,50,"DemoWindow")
+  win = init(512,256,"DemoWindow")
   
   run = True
   while run:
     win.Update()
+    win.background(RED)
+    win.draw_line(WHITE,(10,10),(50,50))
+    win.draw_rect(WHITE, (30,30), (90,90), HOLLOW)
+    win.draw_circle(WHITE, (100,30),10,FILLED)
+    print(win.pos, win.keys, win.mouseButtons)
