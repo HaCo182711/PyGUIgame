@@ -28,17 +28,31 @@ class pggWindow:
     self.mouseButtons = []
     self.pos = 0,0
 
+    self.mousedown = False
+    self.mouseup = False
+
   def Update(self):
     pygame.display.update()
     self.win.fill((0,0,0))
 
     self.pos = pygame.mouse.get_pos()
+    buttons = pygame.mouse.get_pressed(num_buttons=3)
+    self.mouseButtons = [buttons[0], buttons[2]]
+
     for event in pygame.event.get():
       if event.type == pygame.KEYDOWN:
         self.keys.append(event.key)
       if event.type == pygame.KEYUP:
         if event.key in self.keys:
           self.keys.remove(event.key)
+          
+      self.mousedown = False
+      if event.type == pygame.MOUSEBUTTONDOWN:
+        self.mousedown = True
+      self.mouseup = False
+      if event.type == pygame.MOUSEBUTTONUP:
+        self.mouseup = True
+
   def background(self, color):
     self.win.fill(color)
 
