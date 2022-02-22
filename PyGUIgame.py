@@ -40,14 +40,38 @@ for i in range(97,123):
 
 
 
-def init(width, height, name):
-  return pggWindow(width, height, name)
+def init(width, height, name, FPS=60):
+  return pggWindow(width, height, name, FPS)
+
+class Font:
+  def __init__(self,fontname,size):
+    self.Font = pygame.font.Font(fontname, size)
+
+class Text:
+  def __init__(self,text,color=(0,0,0),font=Font("freesansbold.ttf",20)):
+    self.__Text = font.Font.render(text, True, color)
+    self.__width = self.__Text.get_width()
+    self.__height = self.__Text.get_height()
+  def getWidth(self):
+    return self.__width
+  def getHeight(self):
+    return self.__height
+  def getText(self):
+    return self.__Text
 
 class pggWindow:
-  def __init__(self, width, height, name):
+  def __init__(self, width, height, name, FPS):
     self.__width = width
     self.__height = height
     self.__name = name
+
+    self.__SetFPS = FPS
+    self.__FPS = 0
+    self.__AvFPS = 0
+    self.__Time = 0
+    self.__Frames = 0
+
+    self.__Clock = pygame.time.Clock()
 
     self.__win = pygame.display.set_mode((self.__width, self.__height))
     pygame.display.set_caption(self.__name)
@@ -67,6 +91,17 @@ class pggWindow:
     return self.__height
   def getName(self):
     return self.__name
+
+  def getSetFPS(self):
+    return self.__SetFPS
+  def getFPS(self):
+    return round(self.__FPS,2)
+  def getAvFPS(self):
+    return round(self.__AvFPS,2)
+  def getTime(self):
+    return self.__Time
+  def getFrames(self):
+    return self.__Frames
 
   def isKeyDown(self, keycode):
     if keycode in self.__keys:
@@ -99,6 +134,13 @@ class pggWindow:
   def update(self):
 
     pygame.display.update()
+    self.__Clock.tick(self.__SetFPS)
+    self.__FPS = self.__Clock.get_fps()
+    self.__Time = pygame.time.get_ticks()/1000
+    self.__Frames += 1
+    if self.__Time % 1 > 1 - 1/self.__SetFPS:
+      self.__AvFPS = self.__FPS
+
     self.__win.fill((0,0,0))
 
     self.__pos = pygame.mouse.get_pos()
@@ -142,7 +184,8 @@ class pggWindow:
     pygame.draw.rect(self.__win, color, (p1, p2), filled)
   def draw_circle(self, color, p, r, filled=False):
     pygame.draw.circle(self.__win, color, p, r, filled)
-
+  def draw_text(self, text, p):
+    self.__win.blit(text.getText(), p)
 
 if __name__ == "__main__":
   print("this is a demo")

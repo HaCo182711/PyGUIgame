@@ -1,6 +1,7 @@
 import PyGUIgame as pgg
 
-win = pgg.init(512,256, "demo window")
+# more then 120 isn't accurate nor necessary
+win = pgg.init(512,256, "demo window", FPS=120)
 
 run = True
 while run:
@@ -14,7 +15,24 @@ while run:
 
     win.draw_circle(pgg.WHITE, (100,30),10,pgg.FILLED)
 
-    print(win.getMousePos(), win.getKeysDown(), win.getMousePressed())
+    font = pgg.Font("freesansbold.ttf",15)
+
+    hello = pgg.Text("hello world!")
+    otherfont = pgg.Text("this is written in another font",font=font)
+    othercolor = pgg.Text("this is written in another color",color=pgg.BLUE)
+    frame = pgg.Text(f"framecounter: {win.getFrames()}",font=font)
+    fps = pgg.Text(f"fps: {win.getFPS()}",font=font)
+    avfps = pgg.Text(f"av fps: {win.getAvFPS()}",font=font)
+    gametime = pgg.Text(f"time: {win.getTime()}",font=font)
+    win.draw_text(hello, (10,10))
+    win.draw_text(otherfont, (10,50))
+    win.draw_text(othercolor, (10,70))
+    win.draw_text(frame, (10,90))
+    win.draw_text(fps, (10,120))
+    win.draw_text(avfps, (10,150))
+    win.draw_text(gametime, (10,190))
+
+    #print(win.getMousePos(), win.getKeysDown(), win.getMousePressed())
 
     if win.isKeyPressed("Escape"):
       run = False
