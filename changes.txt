@@ -1,0 +1,7 @@
+1) replaced the shape examples in demo to stop overlapping the text
+
+2) added comments by the draw_rect function to clarify the third argument is a dimension tuple and not a point, also corrected this in the function itself (p1->p, p2->dim)
+
+3) removed the automaticaly generated keycodes, as they weren't accurate
+
+4) also removed the part for the keycodes that converted = to + when shift was held as it never removed the + and was obsolete by change 3

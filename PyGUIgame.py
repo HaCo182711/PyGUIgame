@@ -13,9 +13,6 @@ BLUE = (0,0,255)
 
 keycodes = {}
 
-for i in range(1000):
-  keycodes[i] = chr(i)
-
 keycodes.update({
   27:"Escape",
   1073741906:"Up",
@@ -170,18 +167,14 @@ class pggWindow:
       if event.type == pygame.MOUSEBUTTONUP:
         self.__mouseUp = True
 
-    if "LShift" in self.__keys or "RShift" in self.__keys:
-      for i, key in enumerate(self.__keys):
-        if key == "=":
-          self.__keys[i] = "+"
-
   def background(self, color):
     self.__win.fill(color)
 
   def draw_line(self, color, p1, p2):
     pygame.draw.line(self.__win, color, p1, p2)
-  def draw_rect(self, color, p1, p2, filled=False):
-    pygame.draw.rect(self.__win, color, (p1, p2), filled)
+	# takes in a point from where to start and the dimensions of the rectangle
+  def draw_rect(self, color, p, dim, filled=False):
+    pygame.draw.rect(self.__win, color, (p, dim), filled)
   def draw_circle(self, color, p, r, filled=False):
     pygame.draw.circle(self.__win, color, p, r, filled)
   def draw_text(self, text, p):

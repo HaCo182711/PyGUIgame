@@ -9,11 +9,9 @@ while run:
 
     win.background(pgg.RED)
 
-    win.draw_line(pgg.WHITE,(10,10),(50,50))
-
-    win.draw_rect(pgg.WHITE, (30,30), (90,90), pgg.HOLLOW)
-
-    win.draw_circle(pgg.WHITE, (100,30),10,pgg.FILLED)
+    win.draw_line(pgg.WHITE,(350,10),(500,50))
+    win.draw_rect(pgg.WHITE, (350,50), (100,90), pgg.HOLLOW)
+    win.draw_circle(pgg.WHITE, (400,160),10,pgg.FILLED)
 
     font = pgg.Font("freesansbold.ttf",15)
 
