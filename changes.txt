@@ -1,7 +1,9 @@
-1) replaced the shape examples in demo to stop overlapping the text
+1) changed pygame.Font to pygame.SysFont, to avoid having to type .ttf
 
-2) added comments by the draw_rect function to clarify the third argument is a dimension tuple and not a point, also corrected this in the function itself (p1->p, p2->dim)
+2) spaced demo.py a bit better and added some comments
 
-3) removed the automaticaly generated keycodes, as they weren't accurate
+3) added a QUIT and __QUIT variable to window class (when true, window close event was given)
 
-4) also removed the part for the keycodes that converted = to + when shift was held as it never removed the + and was obsolete by change 3
+4) added a get_font and a get_default_font function
+
+5) added some more colors
