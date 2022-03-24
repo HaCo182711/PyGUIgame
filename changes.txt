@@ -1,9 +1,3 @@
-1) changed pygame.Font to pygame.SysFont, to avoid having to type .ttf
+1) converted relative space to 0,0 centered space
 
-2) spaced demo.py a bit better and added some comments
-
-3) added a QUIT and __QUIT variable to window class (when true, window close event was given)
-
-4) added a get_font and a get_default_font function
-
-5) added some more colors
+2) added comments at demo in engine

@@ -94,6 +94,10 @@ class pggWindow:
 		self.__mouseUpEvent = False
 		self.__keyDownsEvent = []
 
+	def __translate_pyg_pgg(self, pos):
+		return pos[0]-self.__width/2, (self.__height-pos[1])-self.__height/2
+	def __translate_pgg_pyg(self, pos):
+		return pos[0]+self.__width/2, -pos[1]-self.__height/2+self.__height
 
 	def getWidth(self):
 		return self.__width
@@ -121,7 +125,7 @@ class pggWindow:
 		return self.__keys
 
 	def getMousePos(self):
-		return self.__pos
+		return self.__translate_pyg_pgg(self.__pos)
 	def getMousePressed(self):
 		return self.__mouseButtons
 	def getLeftMouse(self):
@@ -188,15 +192,22 @@ class pggWindow:
 		self.__win.fill(color)
 
 	def draw_line(self, color, p1, p2):
-		pygame.draw.line(self.__win, color, p1, p2)
+		pygame.draw.line(self.__win, color, self.__translate_pgg_pyg(p1), self.__translate_pgg_pyg(p2))
 	# takes in a point from where to start and the dimensions of the rectangle
 	def draw_rect(self, color, p, dim, filled=False):
-		pygame.draw.rect(self.__win, color, (p, dim), filled)
+		pygame.draw.rect(self.__win, color, (self.__translate_pgg_pyg(p), dim), filled)
 	def draw_circle(self, color, p, r, filled=False):
-		pygame.draw.circle(self.__win, color, p, r, filled)
+		pygame.draw.circle(self.__win, color, self.__translate_pgg_pyg(p), r, filled)
 	def draw_text(self, text, p):
-		self.__win.blit(text.getText(), p)
+		self.__win.blit(text.getText(), self.__translate_pgg_pyg(p))
 
+
+
+
+
+#------
+# demo
+#------
 if __name__ == "__main__":
 	print("this is a demo")
 	win = init(512,256,"DemoWindow")

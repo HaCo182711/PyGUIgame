@@ -16,9 +16,9 @@ while run:
 		win.background(pgg.GRAY)
 
 		# draws a line, rect and circle
-		win.draw_line(pgg.WHITE,(350,10),(500,50))
-		win.draw_rect(pgg.WHITE, (350,50), (100,90), pgg.HOLLOW)
-		win.draw_circle(pgg.WHITE, (400,160),10,pgg.FILLED)
+		win.draw_line(pgg.WHITE,(10,10),(200,60))
+		win.draw_rect(pgg.WHITE, (60,90), (70,50), pgg.HOLLOW)
+		win.draw_circle(pgg.WHITE, (30,-54),10,pgg.FILLED)
 
 		# text, fonts, colors and system variables
 		# makes a font
@@ -37,13 +37,16 @@ while run:
 		gametime = pgg.Text(f"time: {win.getTime()}",font=font)
 
 		# draws the text
-		win.draw_text(hello, (10,10))
-		win.draw_text(otherfont, (10,50))
-		win.draw_text(othercolor, (10,70))
-		win.draw_text(frame, (10,90))
-		win.draw_text(fps, (10,120))
-		win.draw_text(avfps, (10,150))
-		win.draw_text(gametime, (10,190))
+		win.draw_text(hello, (-250,120))
+		win.draw_text(otherfont, (-250,80))
+		win.draw_text(othercolor, (-250,60))
+		win.draw_text(frame, (-250,40))
+		win.draw_text(fps, (-250,10))
+		win.draw_text(avfps, (-250,-20))
+		win.draw_text(gametime, (-250,-60))
+
+		# prints mouse pos
+		print(win.getMousePos())
 
 		# is key escape is pressed, the programs stops
 		if win.isKeyPressed("Escape") or win.QUIT:
